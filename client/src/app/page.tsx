@@ -193,7 +193,7 @@ export default function Home() {
             try {
               console.log("----------> producer transport has connected");
               // Notify the server that the transport is ready to connect with the provided DTLS parameters
-              socket.emit("transport-connect", { dtlsParameters });
+              socket.emit("connectProducerTransport", { dtlsParameters });
               // Callback to indicate success
               callback();
             } catch (error) {
@@ -289,7 +289,7 @@ export default function Home() {
           async ({ dtlsParameters }: any, callback: any, errback: any) => {
             try {
               // Notifying the server to connect the receive transport with the provided DTLS parameters
-              await socket.emit("transport-recv-connect", { dtlsParameters });
+              await socket.emit("connectConsumerTransport", { dtlsParameters });
               console.log("----------> consumer transport has connected");
               callback();
             } catch (error) {
@@ -308,7 +308,7 @@ export default function Home() {
   const connectRecvTransport = async () => {
     // Requesting the server to start consuming media
     await socket.emit(
-      "consume",
+      "consumeMedia",
       { rtpCapabilities: device?.rtpCapabilities },
       async ({ params }: any) => {
         if (params.error) {
@@ -334,7 +334,7 @@ export default function Home() {
         }
 
         // Notifying the server to resume media consumption
-        socket.emit("consume-resume", () => {});
+        socket.emit("resumePausedConsumer", () => {});
         console.log("----------> consumer transport has resumed");
       }
     );

@@ -232,7 +232,7 @@ peers.on("connection", async (socket) => {
    * @param {object} data.dtlsParameters - Datagram Transport Layer Security (DTLS) parameters.
    * These parameters are necessary for securing the transport with encryption.
    */
-  socket.on("transport-connect", async ({ dtlsParameters }) => {
+  socket.on("connectProducerTransport", async ({ dtlsParameters }) => {
     await producerTransport?.connect({ dtlsParameters });
   });
 
@@ -259,7 +259,7 @@ peers.on("connection", async (socket) => {
    * Event handler for connecting the receiving transport.
    * This step is required before the transport can be used to receive media.
    */
-  socket.on("transport-recv-connect", async ({ dtlsParameters }) => {
+  socket.on("connectConsumerTransport", async ({ dtlsParameters }) => {
     await consumerTransport?.connect({ dtlsParameters });
   });
 
@@ -274,7 +274,7 @@ peers.on("connection", async (socket) => {
    * @param {object} rtpCapabilities - The RTP capabilities of the consuming endpoint.
    * @param {function} callback - A callback function to handle the result of the consume operation.
    */
-  socket.on("consume", async ({ rtpCapabilities }, callback) => {
+  socket.on("consumeMedia", async ({ rtpCapabilities }, callback) => {
     try {
       // Ensure there's a producer to consume from
       if (producer) {
@@ -334,7 +334,7 @@ peers.on("connection", async (socket) => {
    * Event handler for resuming media consumption.
    * This function resumes media reception if it was previously paused.
    */
-  socket.on("consume-resume", async () => {
+  socket.on("resumePausedConsumer", async () => {
     console.log("consume-resume");
     await consumer?.resume();
   });
