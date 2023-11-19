@@ -1,4 +1,4 @@
-# Media Soup Learning Demo
+# Mediasoup Learning Demo
 
 Welcome to the Media Soup Learning Demo repository! This project serves as an educational platform to demonstrate the use of Media Soup for real-time media communication. It includes both a Next.js client application and a backend server, organized as separate folders within the same repository.
 
